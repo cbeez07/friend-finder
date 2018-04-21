@@ -14,7 +14,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>Hot Restaurant</title>
+        <title>Friend Finder</title>
     </head>
 
     <body>
@@ -159,20 +159,31 @@
                 </select>
                 <label>Question 10</label>
             </div>
-            <button class="btn waves-effect waves-light" type="submit" name="action" id="submit-button">Submit
+            <button data-target="modal1" class="btn waves-effect waves-light modal-trigger" type="submit" name="action" id="submit-button">Submit
                 <i class="material-icons right">send</i>
             </button>
 
         </div>
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4 id="modal-header">Hello</h4>
+                <p id="modal-body">Hi</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Close</a>
+            </div>
+        </div>
         <script>
             $(document).ready( () => {
+                $('.modal').modal();
                 $('select').formSelect();
                 $('#submit-button').on('click', (event) => {
                     event.preventDefault();
                     var name = $('#fullName').val().trim();
                     var email = $('#email').val().trim();
                     if ((name === '' || email === '')){
-                        console.log("one")
+                        console.log('one')
+                        $('#modal-body').text('Please enter your name and email!')
                     } else {
                         var userFriend = {
                             name: name,
@@ -193,6 +204,8 @@
                         console.log(userFriend);
                         $.post('/api/friends', userFriend, (data) => {
                             console.log(data);
+                            $('#modal-header').text(`Your new friend is ${data.bestName}`);
+                            $('#modal-body').html(`<img src="${data.bestPhoto}" alt="Parks and Rec" style="width: 100%">`)
                         })
                     }
 
@@ -201,6 +214,9 @@
 
             });
         </script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
+      
     </body>
 
     </html>
