@@ -40,7 +40,7 @@
             </div>
 
             <div class="input-field col s5">
-                <select>
+                <select id="q1Input">
                     {# ron swanson #}
                     <option value="" disabled selected>Any dog under 50 pounds is a cat and cats are useless.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -52,7 +52,7 @@
                 <label>Question 1</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q2Input">
                     {# Leslie #}
                     <option value="" disabled selected>There's nothing we can't do if we work hard, never sleep, and shirk all other responsibilities in our lives.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -64,7 +64,7 @@
                 <label>Question 2</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q3Input">
                     {# April #}
                     <option value="" disabled selected>I don't want to do things. I want to not do things.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -76,7 +76,7 @@
                 <label>Question 3</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q4Input">
                     {# Andy #}
                     <option value="" disabled selected>If you rearrange the letters of Peru, you could spell Europe.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -88,7 +88,7 @@
                 <label>Question 4</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q5Input">
                     {# Andy #}
                     <option value="" disabled selected>I did not graduate college because I did not "attend it."</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -100,7 +100,7 @@
                 <label>Question 5</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q6Input">
                     {# April #}
                     <option value="" disabled selected>That's gross, I love it.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -112,7 +112,7 @@
                 <label>Question 6</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q7Input">
                     {# ron #}
                     <option value="" disabled selected>Never half-ass two things. Whole-ass one thing.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -124,7 +124,7 @@
                 <label>Question 7</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q8Input">
                     {# april #}
                     <option value="" disabled selected>I love games that turn people against each other.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -136,7 +136,7 @@
                 <label>Question 8</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q9Input">
                     {# ron #}
                     <option value="" disabled selected>Clear alcohols are for rich women on diets.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -148,7 +148,7 @@
                 <label>Question 9</label>
             </div>
             <div class="input-field col s5">
-                <select>
+                <select id="q10Input">
                     {# Leslie #}
                     <option value="" disabled selected>What I hear when I'm being yelled at is people caring really loudly at me.</option>
                     <option value="1">1 (strongly disagree)</option>
@@ -159,11 +159,46 @@
                 </select>
                 <label>Question 10</label>
             </div>
+            <button class="btn waves-effect waves-light" type="submit" name="action" id="submit-button">Submit
+                <i class="material-icons right">send</i>
+            </button>
 
         </div>
         <script>
-            $(document).ready(function () {
+            $(document).ready( () => {
                 $('select').formSelect();
+                $('#submit-button').on('click', (event) => {
+                    event.preventDefault();
+                    var name = $('#fullName').val().trim();
+                    var email = $('#email').val().trim();
+                    if ((name === '' || email === '')){
+                        console.log("one")
+                    } else {
+                        var userFriend = {
+                            name: name,
+                            email: email,
+                            scores: [
+                                $('#q1Input').val(),
+                                $('#q2Input').val(),
+                                $('#q3Input').val(),
+                                $('#q4Input').val(),
+                                $('#q5Input').val(),
+                                $('#q6Input').val(),
+                                $('#q7Input').val(),
+                                $('#q8Input').val(),
+                                $('#q9Input').val(),
+                                $('#q10Input').val()
+                            ]
+                        };
+                        console.log(userFriend);
+                        $.post('/api/friends', userFriend, (data) => {
+                            console.log('one' + data);
+                        })
+                    }
+
+                });
+
+
             });
         </script>
     </body>

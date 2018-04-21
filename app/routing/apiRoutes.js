@@ -1,8 +1,11 @@
+let friendsArry = require("./../data/friends");
 
-app.get("/api/friends", (req, res) => {
-    return res.json(friendsArry);
-})
+module.exports = (app) => {   
+    app.get("/api/friends", (req, res) => {
+        return res.json(friendsArry);
+    })
 
-app.post("/api/friends", (req, res) => {
-    // handle incoming survey results.
-})
+    app.post("/api/friends", (req, res) => {
+        // handle incoming survey results.
+    })
+}
